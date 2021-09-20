@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <title>Size Guide</title>
+</head>
+
+<body>
+    <div id="app">
+        <table width="850" class="example">
+            <tbody>
+                <tr class="first-row">
+
+                </tr>
+
+                <tr class="second-row">
+
+                </tr>
+
+                <tr class="third-row">
+
+                </tr>
+
+
+                <tr class="fourth-row">
+
+                </tr>
+
+                <tr class="sixth-row">
+
+                </tr>
+            </tbody>
+        </table>
+
+
+        <style>
+            table.example {
+
+                border-collapse: collapse;
+                text-align: center;
+                margin-left: 23%;
+
+            }
+
+            table.example tr {
+
+                border: 1px solid;
+
+            }
+        </style>
+
+
+    </div>
+
+    <script>
+
+        let data = {
+            "women": {
+                "tops": {
+                    "TOPS": {
+                        "Size": ["XXS", "XS", "S", "XL"],
+                        "A": ["78", "82", "86"],
+                        "B": ["38", "39", "40"],
+                        "C": ["59", "60", "60"],
+                    },
+                },
+                "trousers": {
+                    "SKIRTS AND TROUSERS (CM)": {
+                        "Size": ["24", "25", "27"],
+                        "D": ["60", "64", "68"],
+                        "E": ["84", "89", "94"],
+                        "Length": ["28", "30", "32"]
+                    },
+                }
+            },
+            "men": {
+                "tops": {
+                    "TOPS": {
+                        "Size": ["XS", "XS", "S"],
+                        "A": ["94", "98", "104"],
+                        "B": ["45", "46", "47"],
+                        "C": ["65", "66", "66"],
+                    },
+
+                },
+                "trousers": {
+                    "SKIRTS AND TROUSERS (CM)": {
+                        "Size": ["28", "30", "32"],
+                        "E": ["76", "81", "86"],
+                        "F": ["77", "82", "88"],
+                        "Length": ["30", "32", "34"]
+                    },
+
+                }
+            }
+        };
+
+
+
+        function showThirdRow() {
+            document.querySelectorAll('.second-row-child').forEach(function (item) {
+                item.addEventListener('click', function (el) {
+                    let template = ``;
+                    Object.keys(data[el.target.dataset.firstKey][el.target.dataset.title]).forEach(function (thirdRowValue) {
+                        template += `<th class="third-row-child" data-second-key="${el.target.dataset.title}"  data-first-key="${el.target.dataset.firstKey}"  data-title="${thirdRowValue}" style="font-size: 45px; display: inline-block; margin-left: 10px">${thirdRowValue}</е>`;
+                    });
+
+                    document.querySelector('.third-row').innerHTML = template;
+                    showRowFourth();
+                });
+            });
+
+        }
+
+
+        function showRowFourth() {
+            document.querySelectorAll('.third-row-child').forEach(function (item) {
+                item.addEventListener('click', function (el) {
+
+                    let template = ``;
+
+                    Object.keys(data[el.target.dataset.firstKey][el.target.dataset.secondKey][el.target.dataset.title]).forEach(function (fourthRowValue) {
+
+                        template += `<th class="fourth-row-child" data-first-key="${el.target.dataset.firstKey}" data-second-key="${el.target.dataset.secondKey}" data-third-key="${el.target.dataset.title}" data-title="${fourthRowValue}" style="font-size: 45px; display: inline-block; margin-left: 10px">${fourthRowValue}</th>`;
+                    });
+
+                    document.querySelector('.fourth-row').innerHTML = template;
+                    showRowSixth();
+
+                });
+            });
+
+        }
+
+
+        function showRowSixth() {
+            document.querySelectorAll('.fourth-row-child').forEach(function (item) {
+                item.addEventListener('click', function (el) {
+
+                    let template = ``;
+
+                    Object.values(data[el.target.dataset.firstKey][el.target.dataset.secondKey][el.target.dataset.thirdKey][el.target.dataset.title]).forEach(function (sixthRowValue) {
+                        template += `<th class="sixth-row-child" data-title="${sixthRowValue}" style="font-size: 45px; display: inline-block; margin-left: 10px">${sixthRowValue}</th>`;
+                    });
+
+                    document.querySelector('.sixth-row').innerHTML = template;
+
+                });
+            });
+
+        }
+
+        let template = ``;
+        Object.keys(data).forEach(element => {
+            let secondLineKeys = Object.keys(data[element]);
+
+            template += `<th class="first-row-child" data-title="${element}" style="font-size: 45px; display: inline-block; margin-left: 10px">${element}</th>`;
+
+        });
+
+        document.querySelector('.first-row').innerHTML = template;
+
+
+        document.querySelectorAll('.first-row-child').forEach(function (item) {
+            item.addEventListener('click', function (el) {
+                let template = ``;
+                Object.keys(data[el.target.dataset.title]).forEach(function (secondRowValue) {
+                    template += `<th class="second-row-child" data-title="${secondRowValue}" data-first-key="${el.target.dataset.title}" style="font-size: 45px; display: inline-block; margin-left: 10px">${secondRowValue}</th>`;
+                });
+
+                document.querySelector('.second-row').innerHTML = template;
+                showThirdRow();
+
+            });
+        });
+
+    </script>
+</body>
+
+</html>

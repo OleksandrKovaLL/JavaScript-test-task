@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="relative bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+            <div class="flex justify-start lg:w-0 lg:flex-1">
+                <a href="/" class="router">
+                    <span class="sr-only">Workflow</span>
+                    <img class="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="">
+                </a>
+            </div>
+
+            <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                <a href="/cart" class="router whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+                    <i class="fa fa-shopping-cart"></i><span class="countCartItems ml-2"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="app">
+
+</div>
+
+<script src="router.js"></script>
+<script src="modules/api.js"></script>
+<script src="modules/filters.js"></script>
+<script src="modules/cart.js"></script>
+<script src="components/index-page.js"></script>
+<script src="components/cart-page.js"></script>
+<script src="components/detail-page.js"></script>
+
+<script>
+    Router.init();
+
+    Router.dispatch('/');
+
+    document.addEventListener('click', function (e) {
+        if(e.target.dataset && e.target.dataset.filterType) {
+            customFilter.rerenderWithFilter()
+        }
+    })
+</script>
+
+</body>
+</html>
